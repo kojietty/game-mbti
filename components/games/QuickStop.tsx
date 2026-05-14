@@ -131,7 +131,13 @@ export function QuickStop({ onComplete }: Props) {
       {(paused) => {
         pausedRef.current = paused;
         return (
-          <div className="flex flex-col items-center justify-center min-h-screen gap-8 px-6">
+          <div
+            className="flex flex-col items-center justify-center min-h-screen gap-8 px-6 select-none"
+            onClick={phase === "playing" && !feedback ? handleTap : undefined}
+            style={{ cursor: phase === "playing" && !feedback ? "pointer" : "default" }}
+            aria-label={phase === "playing" ? "Tap anywhere to stop the bar" : undefined}
+            role={phase === "playing" ? "button" : undefined}
+          >
             {phase === "ready" && (
               <div className="text-center space-y-4">
                 <p className="text-xl font-bold">バーを止めろ</p>
@@ -140,7 +146,7 @@ export function QuickStop({ onComplete }: Props) {
                 </p>
                 <button
                   className="px-8 py-4 rounded-full bg-[var(--color-primary)] text-black font-black"
-                  onClick={() => setPhase("playing")}
+                  onClick={(e) => { e.stopPropagation(); setPhase("playing"); }}
                 >
                   START
                 </button>
@@ -153,13 +159,10 @@ export function QuickStop({ onComplete }: Props) {
                   ROUND {Math.min(roundIdx + 1, TOTAL_ROUNDS)} / {TOTAL_ROUNDS}
                 </p>
 
-                {/* Bar track */}
-                <button
-                  className="relative rounded-xl overflow-hidden bg-[var(--color-surface)] border border-[var(--color-border)] cursor-pointer select-none focus:outline-none"
+                {/* Bar track — ビジュアルのみ、タップはフルスクリーン側で受け取る */}
+                <div
+                  className="relative rounded-xl overflow-hidden bg-[var(--color-surface)] border border-[var(--color-border)]"
                   style={{ width: CONTAINER_W, height: 80 }}
-                  onClick={handleTap}
-                  aria-label="Tap to stop the bar"
-                  disabled={phase === "done" || !!feedback}
                 >
                   {/* Green zone */}
                   <div
@@ -183,7 +186,7 @@ export function QuickStop({ onComplete }: Props) {
                     }`}
                     style={{ left: barX, width: BAR_W }}
                   />
-                </button>
+                </div>
 
                 {feedback && (
                   <p className={`text-lg font-bold ${feedback === "hit" ? "text-[var(--color-success)]" : "text-[var(--color-warning)]"}`}>
@@ -191,7 +194,7 @@ export function QuickStop({ onComplete }: Props) {
                   </p>
                 )}
                 {!feedback && phase === "playing" && (
-                  <p className="text-xs text-[var(--color-muted)]">タップ / スペースキー</p>
+                  <p className="text-xs text-[var(--color-muted)]">画面のどこでもタップ / スペースキー</p>
                 )}
                 {phase === "done" && (
                   <p className="text-xl font-bold text-[var(--color-success)]">完了！</p>
