@@ -9,13 +9,12 @@
   },
   "triggers": {
     "crons": ["0 4 1 * *"]
-  }
-  // D1 binding は wrangler d1 create 後に追加:
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "game-mbti-results",
-  //     "database_id": "<id>"
-  //   }
-  // ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "game-mbti-results",
+      "database_id": "33a8af67-6b99-4896-91bf-2560626cc79d"
+    }
+  ]
 }
