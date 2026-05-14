@@ -76,7 +76,7 @@
       "description": "A quiet thinker who builds long-term strategies. Rather than standing in the spotlight, they find satisfaction in crafting the perfect move from the shadows.",
       "strengths": ["Long-term vision", "Deep analytical mind", "Self-reliance"],
       "weaknesses": ["Emotional blind spots", "Perfectionism trap"],
-      "bestRoles": ["Analyst", "Architect"],
+      "bestRoles": ["Strategist", "Sniper"],
       "shines": ["Designing long-term plans", "Complex system analysis", "1-on-1 tactical battles"]
     },
     "SDLI": {
@@ -85,7 +85,7 @@
       "description": "A lone solver who dismantles the world with logic and data. Never stops thinking until they find the perfect answer.",
       "strengths": ["Analytical thinking", "Objectivity", "Intellectual curiosity"],
       "weaknesses": ["Slow decision-making", "Awkward emotional expression"],
-      "bestRoles": ["Engineer", "Researcher"],
+      "bestRoles": ["Tech Support", "Debuffer"],
       "shines": ["Root cause analysis", "Learning new technologies", "Deep solo focus work"]
     },
     "VDLP": {
@@ -94,7 +94,7 @@
       "description": "A strategic leader who uses snap decisions and logic to drive a group toward the future. Reads situations instantly and finds the shortest path to the goal.",
       "strengths": ["Decisive action", "Strategic vision", "Strong decision-making"],
       "weaknesses": ["Overlooking emotional needs", "Resistance to unplanned changes"],
-      "bestRoles": ["Leader", "Producer"],
+      "bestRoles": ["Commander", "Shot Caller"],
       "shines": ["Overseeing large projects", "Crisis decision-making", "Launching new ventures"]
     },
     "VDLI": {
@@ -103,7 +103,7 @@
       "description": "A debate-driven player who moves situations with intellectual challenge and improvisation. Questions conventions and wins with tactics nobody else tries.",
       "strengths": ["Logical persuasion", "Idea generation", "Driving discussions"],
       "weaknesses": ["Rough follow-through", "Tendency to corner opponents"],
-      "bestRoles": ["Director", "Strategist"],
+      "bestRoles": ["Raid Leader", "Breaker"],
       "shines": ["Devising new strategies", "Debate", "Pivoting team direction"]
     },
     "SDHP": {
@@ -112,7 +112,7 @@
       "description": "Pursuing a long-term mission with inner vision and strong empathy. Moves the world quietly but surely.",
       "strengths": ["Deep empathy", "Long-term vision", "Insight"],
       "weaknesses": ["Difficulty self-disclosing", "Burnout risk"],
-      "bestRoles": ["Counselor", "Writer"],
+      "bestRoles": ["Buffer", "Support"],
       "shines": ["Building individual trust", "Driving long-term goals", "Designing narratives"]
     },
     "SDHI": {
@@ -121,7 +121,7 @@
       "description": "An idealist who lives by values and imagination. Trusts the inner voice over outside approval and keeps adding beauty to the world.",
       "strengths": ["Creativity", "Consistent values", "Emotional richness"],
       "weaknesses": ["Tendency toward escapism", "Sensitivity to criticism"],
-      "bestRoles": ["Creator", "Writer"],
+      "bestRoles": ["Solo Hunter", "Crafter"],
       "shines": ["World-building creative work", "Valuable solo projects", "Deep 1-on-1 dialogue"]
     },
     "VDHP": {
@@ -130,7 +130,7 @@
       "description": "A charismatic leader who binds people with vision and empathy, guiding the group toward growth. Builds a passionate guild where no one is left behind.",
       "strengths": ["Power to move people", "Concrete future vision", "Team inspiration"],
       "weaknesses": ["Perfectionism-induced burden", "Difficulty accepting criticism"],
-      "bestRoles": ["Manager", "Coach"],
+      "bestRoles": ["Heal Lead", "Buffer"],
       "shines": ["Team leadership", "Talent development", "Motivation management"]
     },
     "VDHI": {
@@ -139,7 +139,7 @@
       "description": "A free-style explorer who expands the world with curiosity and empathy. New encounters and ideas are the fuel.",
       "strengths": ["Communication skills", "Flexible thinking", "Passion and empathy"],
       "weaknesses": ["Scattered attention", "Difficulty with long-term commitments"],
-      "bestRoles": ["Evangelist", "Facilitator"],
+      "bestRoles": ["Explorer", "Flex"],
       "shines": ["Opening new communities", "Crossing ideas", "Setting the vibe"]
     },
     "SOLP": {
@@ -148,7 +148,7 @@
       "description": "An efficiency-focused player who masters the rules and runs the shortest route. Once committed, they execute without compromise.",
       "strengths": ["Execution power", "Attention to detail", "Steady consistency"],
       "weaknesses": ["Slow to adapt to change", "Limited creative thinking"],
-      "bestRoles": ["Operator", "Project Manager"],
+      "bestRoles": ["Speedrunner", "Operator"],
       "shines": ["Completing defined tasks", "Process optimization", "Setting rules and procedures"]
     },
     "SOHP": {
@@ -157,7 +157,7 @@
       "description": "The quiet backbone who supports teammates with warm observation and dedication. The team's emotional pillar.",
       "strengths": ["Empathy", "Behind-the-scenes support", "Stability"],
       "weaknesses": ["Weak self-assertion", "Draining when unappreciated"],
-      "bestRoles": ["Supporter", "Coordinator"],
+      "bestRoles": ["Healer", "Support"],
       "shines": ["Emotional care for the team", "Detailed follow-up", "Long-term trust building"]
     },
     "VOLP": {
@@ -166,7 +166,7 @@
       "description": "A frontline leader who drives the team with clear rules and goals. Prioritizes discipline over emotion and proves it through results.",
       "strengths": ["Organizational ability", "Responsibility", "Decisiveness"],
       "weaknesses": ["Poor empathetic expression", "Stubbornness"],
-      "bestRoles": ["Manager", "Team Lead"],
+      "bestRoles": ["Tank", "Commander"],
       "shines": ["Team command", "KPI management", "Project completion"]
     },
     "VOHP": {
@@ -175,7 +175,7 @@
       "description": "A social player who connects the group with harmony and warmth. Reads the room and makes sure everyone feels at home.",
       "strengths": ["Cooperation", "Reading the room", "Gets along with anyone"],
       "weaknesses": ["Avoiding conflict too much", "Hard to voice own opinions"],
-      "bestRoles": ["Community Manager", "HR"],
+      "bestRoles": ["Support", "Healer"],
       "shines": ["Team atmosphere building", "Interpersonal coordination", "Welcoming newcomers"]
     },
     "SOLI": {
@@ -184,7 +184,7 @@
       "description": "A solo operator who moves with observation and improvisation. No extra words needed — actions speak louder.",
       "strengths": ["Instant situational judgment", "Technical mastery", "Independence"],
       "weaknesses": ["Struggle with teamwork", "Lack of long-term planning"],
-      "bestRoles": ["Specialist", "Technician"],
+      "bestRoles": ["Sniper", "Assassin"],
       "shines": ["Emergency response", "Precision technical work", "Solo problem-solving"]
     },
     "SOHI": {
@@ -193,7 +193,7 @@
       "description": "An artisan player who colors the world with sensibility and improvisation. Prioritizes personal aesthetics over trends and creates things nobody can replicate.",
       "strengths": ["Unique aesthetic sense", "Delicate craftsmanship", "Deep emotional connection"],
       "weaknesses": ["Difficulty with long-term planning", "Tendency to avoid conflict"],
-      "bestRoles": ["Creator", "Artist"],
+      "bestRoles": ["Crafter", "Solo Play"],
       "shines": ["Immersive creative work", "Focused solo concentration", "Leveraging sensibility"]
     },
     "VOLI": {
@@ -202,7 +202,7 @@
       "description": "A frontal force who breaks through situations with action and guts. Sees opportunity over risk — a tough front-runner.",
       "strengths": ["Speed of action", "Courage", "On-site adaptability"],
       "weaknesses": ["Reckless charging ahead", "Emotional flare-ups"],
-      "bestRoles": ["Sales", "Frontend Lead"],
+      "bestRoles": ["Attacker", "Assassin"],
       "shines": ["Entering new markets", "On-site snap decisions", "High-competition performance"]
     },
     "VOHI": {
@@ -211,7 +211,7 @@
       "description": "A born entertainer who sweeps others along with energy and empathy. Lives every moment to the fullest.",
       "strengths": ["Expressiveness", "Sociability", "Warming up the room"],
       "weaknesses": ["Sustaining focus", "Difficulty with deep planning"],
-      "bestRoles": ["Presenter", "Event Organizer"],
+      "bestRoles": ["Flex", "Hype Man"],
       "shines": ["Performing in front of crowds", "Improvisational entertainment", "Community energizing"]
     }
   }

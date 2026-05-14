@@ -133,7 +133,7 @@ export default function ResultPage() {
         {/* Roles */}
         {t.has(`types.${code}.bestRoles.0`) && (
           <div className="card p-4">
-            <p className="text-xs text-[var(--color-secondary)] mb-3 tracking-widest">向いているロール</p>
+            <p className="text-xs text-[var(--color-secondary)] mb-3 tracking-widest">ゲームロール</p>
             <div className="flex flex-wrap gap-2">
               {[0, 1].map((i) =>
                 t.has(`types.${code}.bestRoles.${i}`) ? (
