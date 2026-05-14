@@ -37,6 +37,197 @@ const AXIS_STYLE: Record<AxisKey, {
 
 const AXIS_ORDER: AxisKey[] = ["VS", "OD", "LH", "PI"];
 
+// ── 全 4 軸の両側説明 ─────────────────────────────────────────────────────────
+
+const AXIS_BOTH: Record<AxisKey, {
+  axis: string;
+  pos: { code: string; label: string; jp: string; detail: string };
+  neg: { code: string; label: string; jp: string; detail: string };
+}> = {
+  VS: {
+    axis: "ACTION STYLE",
+    pos: { code: "V", label: "VANGUARD",   jp: "前衛", detail: "速さで前に出る。積極的に仕掛け、相手の反応を引き出す" },
+    neg: { code: "S", label: "SCOUT",      jp: "斥候", detail: "状況を読んでから動く。観察と情報優位でじっくり立ち回る" },
+  },
+  OD: {
+    axis: "PERCEPTION",
+    pos: { code: "O", label: "OBSERVER",   jp: "観察派", detail: "細部を正確に記憶する。具体的な数字・順序・位置を把握する" },
+    neg: { code: "D", label: "DREAMER",    jp: "構想派", detail: "全体のパターンを直感で捉える。細部より流れと感覚で動く" },
+  },
+  LH: {
+    axis: "VALUE SYSTEM",
+    pos: { code: "L", label: "LOGIC",      jp: "論理派", detail: "効率・結果・最適解を優先。感情より客観的な判断基準で動く" },
+    neg: { code: "H", label: "HEART",      jp: "共感派", detail: "チームの気持ちと調和を優先。人との繋がりと関係性で動く" },
+  },
+  PI: {
+    axis: "PLAY APPROACH",
+    pos: { code: "P", label: "PLANNER",    jp: "計画派", detail: "行動前に計画を立てる。最適な手順を考えてから動く" },
+    neg: { code: "I", label: "IMPROVISER", jp: "即興派", detail: "試しながら適応する。状況に合わせてその場で判断・修正する" },
+  },
+};
+
+function AllAxesGuide({ code }: { code: TypeCode }) {
+  // Which side is the user on per axis
+  const userSide = {
+    VS: code[0] as "V" | "S",
+    OD: code[1] as "O" | "D",
+    LH: code[2] as "L" | "H",
+    PI: code[3] as "P" | "I",
+  };
+
+  return (
+    <section className="w-full space-y-3">
+      <h2 className="text-xs tracking-[0.3em] text-[var(--color-muted)]">ALL AXES</h2>
+      {AXIS_ORDER.map((axis) => {
+        const data = AXIS_BOTH[axis];
+        const userCode = userSide[axis];
+        return (
+          <div key={axis} className="card p-4 space-y-3">
+            <p className="text-xs text-[var(--color-muted)] tracking-widest">{data.axis}</p>
+            <div className="grid grid-cols-2 gap-3">
+              {([data.pos, data.neg] as const).map((side) => {
+                const isUser = side.code === userCode;
+                return (
+                  <div
+                    key={side.code}
+                    className={`rounded-lg p-3 border transition-all ${
+                      isUser
+                        ? "border-[var(--color-primary)] bg-cyan-950/30"
+                        : "border-[var(--color-border)] opacity-60"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className={`text-base font-black ${isUser ? "text-[var(--color-primary)]" : "text-[var(--color-muted)]"}`}
+                        style={{ fontFamily: "var(--font-press-start, monospace)" }}
+                      >
+                        {side.code}
+                      </span>
+                      <span className="text-xs font-bold tracking-wider">{side.jp}</span>
+                      {isUser && <span className="ml-auto text-xs text-[var(--color-primary)]">← YOU</span>}
+                    </div>
+                    <p className="text-xs text-zinc-400 leading-relaxed">{side.detail}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </section>
+  );
+}
+
+// ── 全 16 タイプ一覧 ──────────────────────────────────────────────────────────
+
+const ALL_CODES_ORDERED: TypeCode[] = [
+  "VDLP","VDLI","VDLP","VDHI","VDHP","VOLI","VOLP","VOHI","VOHP",
+  "SDLP","SDLI","SDHI","SDHP","SOLI","SOLP","SOHI","SOHP",
+].filter((v, i, a) => a.indexOf(v) === i) as TypeCode[];
+
+// Ordered 4×4 by V/S then sub-groups
+const TYPE_GRID: TypeCode[][] = [
+  ["VDLP","VDLI","VDHP","VDHI"],
+  ["VOLP","VOLI","VOHP","VOHI"],
+  ["SDLP","SDLI","SDHP","SDHI"],
+  ["SOLP","SOLI","SOHP","SOHI"],
+];
+
+function AllTypesGrid({ userCode, locale }: { userCode: TypeCode; locale: string }) {
+  const [expanded, setExpanded] = useState<TypeCode | null>(null);
+
+  return (
+    <section className="w-full space-y-3">
+      <h2 className="text-xs tracking-[0.3em] text-[var(--color-muted)]">ALL 16 TYPES</h2>
+      <p className="text-xs text-[var(--color-muted)]">タップで詳細を見る</p>
+      <div className="space-y-2">
+        {TYPE_GRID.map((row, ri) => (
+          <div key={ri} className="grid grid-cols-4 gap-2">
+            {row.map((tc) => {
+              const isUser = tc === userCode;
+              const isExp  = expanded === tc;
+              const name   = locale === "ja" ? TYPE_NAMES[tc].ja : TYPE_NAMES[tc].en;
+              return (
+                <button
+                  key={tc}
+                  onClick={() => setExpanded(isExp ? null : tc)}
+                  aria-pressed={isExp}
+                  className={`
+                    rounded-lg border p-2 text-left transition-all active:scale-95
+                    ${isUser
+                      ? "border-[var(--color-primary)] bg-cyan-950/40 shadow-[0_0_8px_var(--color-primary)]"
+                      : isExp
+                        ? "border-[var(--color-secondary)]"
+                        : "border-[var(--color-border)] hover:border-zinc-500"}
+                  `}
+                >
+                  <p
+                    className={`text-xs font-black tracking-wider mb-0.5 ${isUser ? "text-[var(--color-primary)]" : "text-zinc-300"}`}
+                    style={{ fontFamily: "var(--font-press-start, monospace)", fontSize: "0.55rem" }}
+                  >
+                    {tc}
+                  </p>
+                  <p className="text-xs text-zinc-400 leading-tight truncate">{name}</p>
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      {/* Expanded detail */}
+      {expanded && (() => {
+        const name = locale === "ja" ? TYPE_NAMES[expanded].ja : TYPE_NAMES[expanded].en;
+        const catchphrase = TYPE_NAMES_DETAIL[expanded]?.[locale === "ja" ? "ja" : "en"] ?? "";
+        return (
+          <div className="card p-4 space-y-1 border-[var(--color-secondary)]">
+            <div className="flex items-center justify-between">
+              <div>
+                <span
+                  className="text-xs font-black text-[var(--color-secondary)] mr-2"
+                  style={{ fontFamily: "var(--font-press-start, monospace)" }}
+                >
+                  {expanded}
+                </span>
+                <span className="font-bold">{name}</span>
+                {expanded === userCode && (
+                  <span className="ml-2 text-xs text-[var(--color-primary)]">← あなた</span>
+                )}
+              </div>
+              <button
+                className="text-[var(--color-muted)] text-sm"
+                onClick={() => setExpanded(null)}
+                aria-label="Close"
+              >✕</button>
+            </div>
+            {catchphrase && <p className="text-xs text-[var(--color-secondary)] italic">{catchphrase}</p>}
+          </div>
+        );
+      })()}
+    </section>
+  );
+}
+
+// キャッチフレーズ（messages から取れないのでここに持つ）
+const TYPE_NAMES_DETAIL: Partial<Record<TypeCode, { ja: string; en: string }>> = {
+  SDLP: { ja: "盤面の 10 手先を読む",           en: "Reading 10 moves ahead" },
+  SDLI: { ja: "仮説と検証を繰り返す",            en: "Hypothesis, test, repeat" },
+  VDLP: { ja: "戦場で迷わず指揮を執る",          en: "No hesitation on the battlefield" },
+  VDLI: { ja: "議論を制し、新しいルールを作る",  en: "Win the argument, rewrite the rules" },
+  SDHP: { ja: "世界の物語を誰よりも深く知る",    en: "Knows the story better than anyone" },
+  SDHI: { ja: "自分の物語を自分で紡ぐ",          en: "Writing your own story" },
+  VDHP: { ja: "全員が輝けるステージを作る",      en: "Building a stage where everyone shines" },
+  VDHI: { ja: "どこへでも。誰とでも。今すぐ",    en: "Anywhere. With anyone. Right now." },
+  SOLP: { ja: "最速・最短で目標を達成する",      en: "Fastest route, every time" },
+  SOHP: { ja: "誰かが倒れそうな時、そこにいる",  en: "There when someone is about to fall" },
+  VOLP: { ja: "チームを動かし、目標に走る",      en: "Move the team, run toward the goal" },
+  VOHP: { ja: "みんなが笑顔のパーティを作る",    en: "Creating a party where everyone smiles" },
+  SOLI: { ja: "一発必中。無駄は省く",            en: "One shot, one hit. No waste." },
+  SOHI: { ja: "自分のペースで一品物を",          en: "One-of-a-kind work, at my own pace" },
+  VOLI: { ja: "先頭を走る。考えるのは後で",      en: "Lead the charge. Think later." },
+  VOHI: { ja: "舞台は世界。君が主役だ",          en: "The world is your stage. You're the star." },
+};
+
 function StyleAxes({ code, axisScores, locale }: {
   code: TypeCode;
   axisScores: Record<AxisKey, number>;
@@ -262,6 +453,12 @@ export default function ResultPage() {
           );
         })}
       </section>
+
+      {/* ── All axes guide ── */}
+      <AllAxesGuide code={code} />
+
+      {/* ── All 16 types ── */}
+      <AllTypesGrid userCode={code} locale={locale} />
 
       {/* ── Compatibility ── */}
       <section className="w-full space-y-3">
