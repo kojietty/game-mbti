@@ -108,7 +108,7 @@ export function QuickReact({ onComplete }: Props) {
       axisDeltas,
     };
     setPhase("done");
-    setTimeout(() => onComplete(result), 600);
+    setTimeout(() => onComplete(result), 3500);
   }
 
   // Keyboard: space key

@@ -122,7 +122,7 @@ export function RpgCrossroads({ onComplete }: Props) {
 
               {/* Situation */}
               <div className="card px-6 py-6 max-w-sm text-center">
-                <p className="text-base leading-relaxed">{scenario.situation}</p>
+                <p className="text-base leading-relaxed text-white">{scenario.situation}</p>
               </div>
 
               {/* Choices */}
@@ -132,7 +132,7 @@ export function RpgCrossroads({ onComplete }: Props) {
                     key={ct}
                     className={`
                       card px-5 py-4 text-left rounded-xl text-sm transition-all
-                      ${selected === ct ? CHOICE_COLORS[ct] + " bg-opacity-10" : "hover:border-zinc-400"}
+                      ${selected === ct ? CHOICE_COLORS[ct] : "hover:border-zinc-400"}
                       ${selected && selected !== ct ? "opacity-40" : "active:scale-95"}
                     `}
                     onClick={() => handleSelect(ct)}
@@ -140,11 +140,6 @@ export function RpgCrossroads({ onComplete }: Props) {
                   >
                     <span className="mr-3 font-mono text-xs text-[var(--color-muted)]">{i + 1}</span>
                     {scenario.options[i]}
-                    {selected === ct && (
-                      <span className={`ml-2 text-xs ${CHOICE_COLORS[ct]}`}>
-                        [{CHOICE_LABELS[ct]}]
-                      </span>
-                    )}
                   </button>
                 ))}
               </div>

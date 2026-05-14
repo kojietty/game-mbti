@@ -104,3 +104,21 @@ export const TYPE_NAMES: Record<TypeCode, { en: string; ja: string }> = {
 };
 
 export const ALL_CODES = Object.keys(TYPE_NAMES) as TypeCode[];
+
+// ─── Game genre recommendations ───────────────────────────────────────────────
+
+const GENRE_PRIMARY: Record<AxisLetter, string> = {
+  V: "アクション・FPS",
+  S: "ステルス・ADV",
+  O: "シミュレーション・MMO",
+  D: "ローグライク・オープンワールド",
+  L: "ストラテジー・パズル",
+  H: "RPG・Co-op",
+  P: "建設ゲーム・4X",
+  I: "格ゲー・バトロワ",
+};
+
+/** Returns 4 recommended game genres derived from the type code (1 per axis). */
+export function getGameGenres(code: TypeCode): string[] {
+  return code.split("").map((c) => GENRE_PRIMARY[c as AxisLetter]);
+}

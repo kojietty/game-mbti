@@ -44,8 +44,8 @@
       "controls": "Tap / Number keys 1-9"
     },
     "pattern-predictor": {
-      "title": "PATTERN PREDICTOR",
-      "rules": "Find the hidden rule in the sequence and pick what comes next. 10 questions.",
+      "title": "ODD ONE OUT",
+      "rules": "Pick the one that doesn't belong. 10 questions. Trust your instincts.",
       "controls": "Tap / Number keys 1-4"
     },
     "single-stroke": {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useStore } from "@/lib/store";
-import { TYPE_NAMES } from "@/lib/type-code";
+import { TYPE_NAMES, getGameGenres } from "@/lib/type-code";
 import { getCompat } from "@/lib/compatibility";
 import { Link } from "@/i18n/navigation";
 import { ProgressBar } from "@/components/ui/ProgressBar";
@@ -125,6 +125,53 @@ export default function ResultPage() {
           </div>
         </section>
       )}
+
+      {/* ── Gaming Profile ── */}
+      <section className="w-full space-y-4">
+        <h2 className="text-xs tracking-[0.3em] text-[var(--color-muted)]">GAMING PROFILE</h2>
+
+        {/* Roles */}
+        {t.has(`types.${code}.bestRoles.0`) && (
+          <div className="card p-4">
+            <p className="text-xs text-[var(--color-secondary)] mb-3 tracking-widest">向いているロール</p>
+            <div className="flex flex-wrap gap-2">
+              {[0, 1].map((i) =>
+                t.has(`types.${code}.bestRoles.${i}`) ? (
+                  <span key={i} className="px-3 py-1 rounded-full text-sm border border-[var(--color-secondary)] text-[var(--color-secondary)]">
+                    {t(`types.${code}.bestRoles.${i}`)}
+                  </span>
+                ) : null
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Active scenes */}
+        {t.has(`types.${code}.shines.0`) && (
+          <div className="card p-4">
+            <p className="text-xs text-[var(--color-success)] mb-3 tracking-widest">活きる場面</p>
+            <ul className="space-y-1">
+              {[0, 1, 2].map((i) =>
+                t.has(`types.${code}.shines.${i}`) ? (
+                  <li key={i} className="text-sm text-zinc-300">▸ {t(`types.${code}.shines.${i}`)}</li>
+                ) : null
+              )}
+            </ul>
+          </div>
+        )}
+
+        {/* Game genres */}
+        <div className="card p-4">
+          <p className="text-xs text-[var(--color-primary)] mb-3 tracking-widest">向いているゲームジャンル</p>
+          <div className="flex flex-wrap gap-2">
+            {getGameGenres(code).map((genre) => (
+              <span key={genre} className="px-3 py-1 rounded-full text-xs border border-[var(--color-border)] text-zinc-300">
+                {genre}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── Game scores ── */}
       <section className="w-full space-y-3">

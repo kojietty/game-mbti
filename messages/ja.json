@@ -44,8 +44,8 @@
       "controls": "タップ / 数字キー 1-9"
     },
     "pattern-predictor": {
-      "title": "PATTERN PREDICTOR",
-      "rules": "図形の列に隠されたルールを見つけ、次に来るものを選べ。10 問。",
+      "title": "ODD ONE OUT",
+      "rules": "4 つの中から 1 つだけ仲間外れを選べ。全 10 問。直感で答えろ。",
       "controls": "タップ / 数字キー 1-4"
     },
     "single-stroke": {
