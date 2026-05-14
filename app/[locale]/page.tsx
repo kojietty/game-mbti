@@ -1,23 +1,42 @@
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { ResumeBanner } from "@/components/ui/ResumeBanner";
 
 export default function Landing() {
   const t = useTranslations("landing");
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-4xl sm:text-6xl font-black tracking-widest">
+    <main className="flex flex-col items-center justify-center min-h-screen px-6 text-center gap-6">
+      <ResumeBanner />
+
+      {/* Title */}
+      <h1
+        className="text-4xl sm:text-6xl font-black tracking-widest neon-primary"
+        style={{ fontFamily: "var(--font-orbitron, sans-serif)" }}
+      >
         {t("title")}
       </h1>
-      <p className="mt-6 text-lg sm:text-2xl text-zinc-300 max-w-xl">
+
+      {/* Catchphrase */}
+      <p className="text-xl sm:text-3xl font-bold text-zinc-100 max-w-lg">
         {t("catchphrase")}
       </p>
-      <p className="mt-3 text-sm text-zinc-500 max-w-md">{t("intro")}</p>
-      <button
-        type="button"
-        className="mt-10 rounded-full bg-cyan-400 px-8 py-3 text-base font-bold text-black hover:bg-cyan-300 transition-colors"
-      >
-        {t("cta")}
-      </button>
+
+      {/* Intro */}
+      <p className="text-sm text-[var(--color-muted)] max-w-md">
+        {t("intro")}
+      </p>
+
+      {/* CTA */}
+      <Link href="/intro">
+        <button
+          type="button"
+          className="mt-4 px-10 py-4 rounded-full bg-[var(--color-primary)] text-black font-black text-lg tracking-widest hover:bg-cyan-300 active:scale-95 transition-all"
+          style={{ fontFamily: "var(--font-orbitron, sans-serif)" }}
+        >
+          {t("cta")}
+        </button>
+      </Link>
     </main>
   );
 }
