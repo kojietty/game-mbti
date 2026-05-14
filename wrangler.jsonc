@@ -1,0 +1,21 @@
+{
+  "name": "game-mbti",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-05-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "triggers": {
+    "crons": ["0 4 1 * *"]
+  }
+  // D1 binding は wrangler d1 create 後に追加:
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "game-mbti-results",
+  //     "database_id": "<id>"
+  //   }
+  // ]
+}
