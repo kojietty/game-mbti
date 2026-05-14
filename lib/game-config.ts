@@ -50,11 +50,11 @@ export const GAME_META: Record<GameId, GameMeta> = {
   },
   "pattern-predictor": {
     stageNum: 4,
-    iconName: "Sparkles",
+    iconName: "Eye",
     axis: "OD",
     formatMetric: (r) => {
-      const correct = r.rawData.correct as number | undefined;
-      return correct != null ? `${correct} / 10 correct` : `Score: ${r.score}`;
+      const acc = r.rawData.avgAccuracy as number | undefined;
+      return acc != null ? `Avg accuracy: ${acc}%` : `Score: ${r.score}`;
     },
   },
   "single-stroke": {

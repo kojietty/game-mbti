@@ -44,8 +44,8 @@
       "controls": "タップ / 数字キー 1-9"
     },
     "pattern-predictor": {
-      "title": "ODD ONE OUT",
-      "rules": "4 つの中から 1 つだけ仲間外れを選べ。全 10 問。直感で答えろ。",
+      "title": "FLASH SENSE",
+      "rules": "ドットが一瞬表示される。何個あったか選べ。数えるな、感じろ。全 8 問。",
       "controls": "タップ / 数字キー 1-4"
     },
     "single-stroke": {
