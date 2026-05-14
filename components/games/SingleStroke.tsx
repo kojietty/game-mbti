@@ -54,7 +54,9 @@ export function SingleStroke({ onComplete }: Props) {
   const finalize = useCallback((results: PuzzleResult[]) => {
     const completed = results.filter((r) => r.completed).length;
     const totalMs = results.reduce((s, r) => s + r.solveMs, 0);
-    const avgThinkMs = results.reduce((s, r) => s + r.thinkMs, 0) / results.length;
+    // 通知・持ち直し等の外乱ノイズを除去するためパズルごとに 15s 上限キャップ
+    const THINK_CAP = 15_000;
+    const avgThinkMs = results.reduce((s, r) => s + Math.min(r.thinkMs, THINK_CAP), 0) / results.length;
     const totalRestarts = results.reduce((s, r) => s + r.restarts, 0);
     const { score, axisDeltas } = scoreSingleStroke({ completed, totalMs, avgThinkMs, restarts: totalRestarts });
     setTimeout(() => onComplete({

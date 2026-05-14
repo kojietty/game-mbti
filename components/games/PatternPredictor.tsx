@@ -131,10 +131,17 @@ export function PatternPredictor({ onComplete }: Props) {
         const avgAcc = recs.reduce((s, r) => s + r.accuracy, 0) / recs.length;
         const avgMs  = recs.reduce((s, r) => s + r.responseMs, 0) / recs.length;
         const score  = Math.round(avgAcc * 100);
-        // D = high accuracy + fast response (ゲシュタルト直感)
-        // O = lower accuracy (カウントしようとして失敗) or slow
+        // OD 信号の再設計
+        //   D (Dreamer)   = 高精度 + 速い → 直感で正確に捉えた
+        //   O (Observer)  = 低精度 + どんな速度でも → 直感が弱く数えようとした
+        //
+        // speedFactor: 0-8s を 0→1 に正規化（8s 超は 0 扱い：速いほど直感的）
         const speedFactor = clamp(1 - avgMs / 8000, 0, 1);
-        const odDelta = Math.round(clamp(-(avgAcc * speedFactor * 50 - 5), -50, 50));
+        // D 成分: 高精度 × 速さ で最大 -50 (amplitudeを 50→70 に増加)
+        const dComponent = avgAcc * speedFactor * 70;
+        // O 成分: 低精度が多いほど O 寄りに補正（直感が機能しなかった証拠）
+        const oComponent = (1 - avgAcc) * 20;
+        const odDelta = Math.round(clamp(-dComponent + oComponent, -50, 50));
         setTimeout(() => onComplete({
           gameId: "pattern-predictor",
           score,

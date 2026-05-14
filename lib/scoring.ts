@@ -16,13 +16,15 @@ export function scoreQuickReact(raw: {
   avgMs: number;
   flyingCount: number;
 }): Pick<GameResult, "score" | "axisDeltas"> {
+  // Score: 200ms=100点, 600ms=0点 (表示用はそのまま)
   const base = linearScore(raw.avgMs, 200, 600);
   const flyingPenalty = [0, 10, 25, 50][Math.min(raw.flyingCount, 3)];
   const score = clamp(base - flyingPenalty, 0, 100);
 
-  // VS: fast (low ms) → positive (V), slow → negative (S)
-  // flying shifts toward S
-  const vsDelta = clamp(linearScore(raw.avgMs, 200, 600) - 50 - raw.flyingCount * 8, -50, 50);
+  // 軸判定: ゲーマー集団向けに中立点を 400ms → 300ms に再調整
+  // best=180ms, worst=450ms → 300ms 付近が V/S 境界
+  const vsBase = linearScore(raw.avgMs, 180, 450);
+  const vsDelta = clamp(vsBase - 50 - raw.flyingCount * 8, -50, 50);
 
   return { score: Math.round(score), axisDeltas: { VS: Math.round(vsDelta) } };
 }
@@ -51,8 +53,10 @@ export function scoreSequenceMemory(raw: {
   reached: number;
 }): Pick<GameResult, "score" | "axisDeltas"> {
   const score = linearScore(raw.reached, 10, 3);
-  // OD: 5+ floors → O (concrete memory); below 5 → D side
-  const odDelta = clamp((raw.reached - 5) * 10, -50, 50);
+  // 中立点を 5→6 段に引き上げ、勾配を 10→12 に増加
+  // 6 段=中立、8 段=+24(O)、10 段=+48(強 O)、3 段=-36(強 D)
+  // Flash Sense と引き合っても両軸がくっきり分かれるよう振れ幅を確保
+  const odDelta = clamp((raw.reached - 6) * 12, -50, 50);
   return { score: Math.round(score), axisDeltas: { OD: Math.round(odDelta) } };
 }
 
@@ -73,17 +77,23 @@ export function scorePatternPredictor(raw: {
 export function scoreSingleStroke(raw: {
   completed: number; // 0-3
   totalMs: number;
-  avgThinkMs: number;
+  avgThinkMs: number; // コンポーネント側でパズルごと 15s 上限キャップ済み
   restarts: number;
 }): Pick<GameResult, "score" | "axisDeltas"> {
   const base = 100 - (3 - raw.completed) * 25;
   const timePenalty = clamp((raw.totalMs - 60000) / 7000, 0, 30);
   const score = clamp(base - timePenalty, 0, 100);
 
-  // PI: long think + few restarts → P; short think + many restarts → I
-  const thinkScore = clamp((raw.avgThinkMs - 3000) / 500, -10, 10);
-  const restartScore = clamp(-raw.restarts * 3, -15, 0);
-  const piDelta = clamp((thinkScore + restartScore) * 3, -50, 50);
+  // PI 判定の再設計
+  // 主信号: リスタート回数（行動の計画性を直接測定、ノイズに強い）
+  //   0 回 = +30(P), 3 回 = 0(中立), 6 回以上 = -30(I)
+  const restartBase = clamp(30 - raw.restarts * 10, -30, 30);
+
+  // 副信号: 思考時間（外乱上限キャップ後。4s を中立基準に）
+  //   8s 以上 = +8(P 加算), 2s 以下 = -8(I 加算)
+  const thinkMod = clamp((raw.avgThinkMs - 4000) / 500, -8, 8);
+
+  const piDelta = clamp(restartBase + thinkMod, -50, 50);
 
   return { score: Math.round(score), axisDeltas: { PI: Math.round(piDelta) } };
 }
