@@ -28,6 +28,26 @@
     "complete": "COMPLETE"
   },
   "stages": {
+    "quick-stop": {
+      "title": "QUICK STOP",
+      "rules": "バーが緑ゾーンに入ったらタップして止める。ゾーンは段々と縮む。10 ラウンド。",
+      "controls": "タップ / スペースキー"
+    },
+    "mission-brief": {
+      "title": "MISSION BRIEF",
+      "rules": "味方の報告文を 5 秒読んだ後、詳細について質問に答えよ。5 ラウンド。",
+      "controls": "タップ / 数字キー 1-3"
+    },
+    "quest-select": {
+      "title": "QUEST SELECT",
+      "rules": "予算 10 ターン内で報酬が最大になるクエストを選べ。30 秒以内に確定。",
+      "controls": "タップ / チェック選択"
+    },
+    "loot-allocation": {
+      "title": "LOOT ALLOCATION",
+      "rules": "クリア後の 1000G を 4 人のメンバーに分配せよ。3 ラウンド。",
+      "controls": "+/- ボタン"
+    },
     "quick-react": {
       "title": "QUICK REACT",
       "rules": "画面が緑に変わったら即タップ！フライングは減点。5 回挑戦。",

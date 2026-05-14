@@ -28,6 +28,26 @@
     "complete": "COMPLETE"
   },
   "stages": {
+    "quick-stop": {
+      "title": "QUICK STOP",
+      "rules": "Tap to stop the bar when it enters the green zone. The zone shrinks each round. 10 rounds.",
+      "controls": "Tap / Space key"
+    },
+    "mission-brief": {
+      "title": "MISSION BRIEF",
+      "rules": "Read the team report for 5 seconds, then answer detail questions. 5 rounds.",
+      "controls": "Tap / Number keys 1-3"
+    },
+    "quest-select": {
+      "title": "QUEST SELECT",
+      "rules": "Pick quests to maximize reward within a 10-turn budget. Confirm in 30 seconds.",
+      "controls": "Tap / Check to select"
+    },
+    "loot-allocation": {
+      "title": "LOOT ALLOCATION",
+      "rules": "Distribute 1000G among 4 party members after the raid. 3 rounds.",
+      "controls": "+/- buttons"
+    },
     "quick-react": {
       "title": "QUICK REACT",
       "rules": "Tap the moment the screen turns green! Tapping early counts as a foul. 5 trials.",

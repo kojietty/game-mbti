@@ -148,17 +148,105 @@ export function scorePartyPick(raw: {
   return { score, axisDeltas: { LH: Math.round(lhDelta) } };
 }
 
+// ─── New game scorers (+4) ────────────────────────────────────────────────────
+
+export function scoreQuickStop(raw: {
+  rounds: { accuracy: number; earlyTapMs: number; hit: boolean }[];
+}): Pick<GameResult, "score" | "axisDeltas"> {
+  const hits = raw.rounds.filter((r) => r.hit);
+  const avgAccuracy = hits.length > 0 ? hits.reduce((s, r) => s + r.accuracy, 0) / hits.length : 0;
+  const avgEarlyMs  = hits.length > 0 ? hits.reduce((s, r) => s + r.earlyTapMs, 0) / hits.length : 0;
+  const hitRate = raw.rounds.length > 0 ? hits.length / raw.rounds.length : 0;
+  const score = Math.round(avgAccuracy * hitRate * 100);
+
+  // V: taps early (low earlyMs) → impulsive front-liner
+  // S: waits for center (high earlyMs) → patient scout
+  // earlyTapMs: time from entering green zone to tap (positive = waited longer)
+  const vsDelta = clamp(-(avgEarlyMs / 200) * 25 + (0.5 - avgAccuracy) * 40, -50, 50);
+
+  return { score, axisDeltas: { VS: Math.round(vsDelta) } };
+}
+
+export function scoreMissionBrief(raw: {
+  answers: { correct: boolean; responseMs: number }[];
+}): Pick<GameResult, "score" | "axisDeltas"> {
+  const total = raw.answers.length;
+  if (total === 0) return { score: 0, axisDeltas: { OD: 0 } };
+
+  const correct = raw.answers.filter((a) => a.correct).length;
+  const accuracy = correct / total;
+  const avgMs = raw.answers.reduce((s, a) => s + a.responseMs, 0) / total;
+  const score = Math.round(accuracy * 100);
+
+  // O: high accuracy = remembered specific details
+  // D: low accuracy = grasped the gist but forgot specifics
+  // Speed modifier: fast + correct = slightly more O (detail locked in fast)
+  const speedBonus = clamp((8000 - avgMs) / 8000 * 8, 0, 8);
+  const odDelta = clamp((accuracy - 0.5) * 80 + speedBonus, -50, 50);
+
+  return { score, axisDeltas: { OD: Math.round(odDelta) } };
+}
+
+function pearsonCorrelation(xs: number[], ys: number[]): number {
+  const n = xs.length;
+  if (n < 2) return 0;
+  const mx = xs.reduce((s, v) => s + v, 0) / n;
+  const my = ys.reduce((s, v) => s + v, 0) / n;
+  const num = xs.reduce((s, x, i) => s + (x - mx) * (ys[i] - my), 0);
+  const dx = Math.sqrt(xs.reduce((s, x) => s + (x - mx) ** 2, 0));
+  const dy = Math.sqrt(ys.reduce((s, y) => s + (y - my) ** 2, 0));
+  if (dx === 0 || dy === 0) return 0;
+  return num / (dx * dy);
+}
+
+export function scoreLootAllocation(raw: {
+  rounds: { contributions: number[]; allocations: number[] }[];
+}): Pick<GameResult, "score" | "axisDeltas"> {
+  if (raw.rounds.length === 0) return { score: 50, axisDeltas: { LH: 0 } };
+
+  const avgCorr = raw.rounds.reduce((s, r) =>
+    s + pearsonCorrelation(r.contributions, r.allocations), 0) / raw.rounds.length;
+
+  // L: high correlation (merit-based) → positive
+  // H: low/negative correlation (equal or need-based) → negative
+  const lhDelta = clamp(avgCorr * 50, -50, 50);
+  const score = Math.round(((avgCorr + 1) / 2) * 100);
+
+  return { score, axisDeltas: { LH: Math.round(lhDelta) } };
+}
+
+export function scoreQuestSelect(raw: {
+  userReward: number;
+  optimalReward: number;
+  decisionMs: number;
+}): Pick<GameResult, "score" | "axisDeltas"> {
+  const efficiency = raw.optimalReward > 0 ? raw.userReward / raw.optimalReward : 0;
+  const score = Math.round(efficiency * 100);
+
+  // P: high efficiency (calculated optimal) + long decision time
+  // I: lower efficiency (grabbed by gut) + short decision time
+  const effBonus = clamp((efficiency - 0.6) * 50, -20, 30);
+  const timeBonus = clamp((raw.decisionMs - 10000) / 2000 * 12, -20, 20);
+  const piDelta = clamp(effBonus + timeBonus, -50, 50);
+
+  return { score, axisDeltas: { PI: Math.round(piDelta) } };
+}
+
 // ─── Axis aggregation ─────────────────────────────────────────────────────────
 
 // Weight of each game's contribution per axis
 const AXIS_WEIGHTS: Partial<Record<GameId, Partial<Record<AxisKey, number>>>> = {
   "quick-react":       { VS: 1.0 },
+  "quick-stop":        { VS: 1.0 },
   "target-hunter":     { VS: 0.5, PI: 0.5 },
   "sequence-memory":   { OD: 1.0 },
+  "mission-brief":     { OD: 1.0 },
   "pattern-predictor": { OD: 1.0 },
   "single-stroke":     { PI: 1.0 },
+  "quest-select":      { PI: 1.0 },
   "code-breaker":      { PI: 0.8 },
   "rpg-crossroads":    { LH: 1.0 },
+  "loot-allocation":   { LH: 1.0 },
   "party-pick":        { LH: 0.8 },
 };
 

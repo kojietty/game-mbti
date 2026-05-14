@@ -3,12 +3,16 @@
  */
 export type GameId =
   | "quick-react"
-  | "target-hunter"
+  | "quick-stop"
   | "sequence-memory"
+  | "mission-brief"
+  | "target-hunter"
   | "pattern-predictor"
   | "single-stroke"
+  | "quest-select"
   | "code-breaker"
   | "rpg-crossroads"
+  | "loot-allocation"
   | "party-pick";
 
 /**

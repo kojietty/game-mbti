@@ -25,7 +25,7 @@ interface AppState extends PlayState, SettingsState {
   setMuted: (v: boolean) => void;
 }
 
-const GAMES_TOTAL = 8;
+const GAMES_TOTAL = 12;
 
 export const useStore = create<AppState>()(
   persist(

@@ -15,12 +15,16 @@ import { StageBridge } from "@/components/flow/StageBridge";
 import { CompilingResults } from "@/components/flow/CompilingResults";
 
 import { QuickReact }       from "@/components/games/QuickReact";
+import { QuickStop }        from "@/components/games/QuickStop";
 import { TargetHunter }     from "@/components/games/TargetHunter";
 import { SequenceMemory }   from "@/components/games/SequenceMemory";
+import { MissionBrief }     from "@/components/games/MissionBrief";
 import { PatternPredictor } from "@/components/games/PatternPredictor";
 import { SingleStroke }     from "@/components/games/SingleStroke";
+import { QuestSelect }      from "@/components/games/QuestSelect";
 import { CodeBreaker }      from "@/components/games/CodeBreaker";
 import { RpgCrossroads }    from "@/components/games/RpgCrossroads";
+import { LootAllocation }   from "@/components/games/LootAllocation";
 import { PartyPick }        from "@/components/games/PartyPick";
 
 type Phase =
@@ -38,12 +42,16 @@ function GameComponent({
 }) {
   switch (gameId) {
     case "quick-react":       return <QuickReact onComplete={onComplete} />;
-    case "target-hunter":     return <TargetHunter onComplete={onComplete} />;
+    case "quick-stop":        return <QuickStop onComplete={onComplete} />;
     case "sequence-memory":   return <SequenceMemory onComplete={onComplete} />;
+    case "mission-brief":     return <MissionBrief onComplete={onComplete} />;
+    case "target-hunter":     return <TargetHunter onComplete={onComplete} />;
     case "pattern-predictor": return <PatternPredictor onComplete={onComplete} />;
     case "single-stroke":     return <SingleStroke onComplete={onComplete} />;
+    case "quest-select":      return <QuestSelect onComplete={onComplete} />;
     case "code-breaker":      return <CodeBreaker onComplete={onComplete} />;
     case "rpg-crossroads":    return <RpgCrossroads onComplete={onComplete} />;
+    case "loot-allocation":   return <LootAllocation onComplete={onComplete} />;
     case "party-pick":        return <PartyPick onComplete={onComplete} />;
     default:                  return null;
   }
