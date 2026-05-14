@@ -51,29 +51,29 @@ function generateDots(count: number): Dot[] {
 }
 
 function makeChoices(actual: number): number[] {
-  // Distractor distances: ~18%, ~32%, ~48% of actual (scaled so not too close)
+  // 50% の確率で「正解が 2 番目に小さい」か「3 番目に小さい」かが変わる。
+  // どちらのケースも「常に最小を選べば当たる」戦略が通用しない。
   const seen = new Set([actual]);
+  const offsets = Math.random() < 0.5
+    // Case A: below / above / above  → 正解は 2 番目
+    ? [
+        -Math.round(actual * 0.24),  // ~-24%
+        +Math.round(actual * 0.22),  // ~+22%
+        +Math.round(actual * 0.48),  // ~+48%
+      ]
+    // Case B: below / below / above  → 正解は 3 番目
+    : [
+        -Math.round(actual * 0.22),  // ~-22%
+        -Math.round(actual * 0.46),  // ~-46%
+        +Math.round(actual * 0.26),  // ~+26%
+      ];
+
   const result = [actual];
-  const dist = [
-    Math.max(2, Math.round(actual * 0.18)),
-    Math.max(3, Math.round(actual * 0.32)),
-    Math.max(4, Math.round(actual * 0.48)),
-  ];
-  const signs = [1, -1, 1, -1];
-  let di = 0;
-  for (const d of dist) {
-    for (const sign of signs) {
-      const cand = Math.max(1, actual + sign * d);
-      if (!seen.has(cand)) { seen.add(cand); result.push(cand); break; }
-    }
-    di++;
-    if (result.length >= 4) break;
-  }
-  // Emergency fallback
-  let off = 1;
-  while (result.length < 4) {
-    if (!seen.has(actual + off)) { result.push(actual + off); seen.add(actual + off); }
-    off++;
+  for (const off of offsets) {
+    let cand = Math.max(1, actual + off);
+    while (seen.has(cand)) cand++;   // 衝突したら +1 ずらす
+    seen.add(cand);
+    result.push(cand);
   }
   return result.sort(() => Math.random() - 0.5);
 }
