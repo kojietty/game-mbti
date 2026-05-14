@@ -39,29 +39,31 @@ export const PUZZLES: StrokePuzzle[] = [
     ],
     oddNodes: ["B", "D"],
   },
-  // ── Medium: House ─────────────────────────────────────────────────────────────
-  // Degrees: A=4, B=2, C=4, D=3*, E=3*  → Euler path D↔E
+  // ── Medium: H 字型 ───────────────────────────────────────────────────────────
+  // A─B (top)、E─F (crossbar)、C─D (bottom)、縦 2 本 A-E-C / B-F-D
+  // Degrees: A=2, B=2, C=2, D=2, E=3*, F=3*  → Euler path E↔F
+  // 辺が一直線上で重ならないため視覚的に判別しやすい
   {
-    id: "house",
+    id: "h-shape",
     difficulty: "medium",
     nodes: [
-      { id: "A", x: 80,  y: 300 },
-      { id: "B", x: 200, y: 120 },
-      { id: "C", x: 320, y: 300 },
-      { id: "D", x: 200, y: 300 },
-      { id: "E", x: 200, y: 210 },
+      { id: "A", x: 80,  y: 80  },
+      { id: "B", x: 320, y: 80  },
+      { id: "C", x: 80,  y: 360 },
+      { id: "D", x: 320, y: 360 },
+      { id: "E", x: 80,  y: 220 },
+      { id: "F", x: 320, y: 220 },
     ],
     edges: [
-      { from: "A", to: "B" },
-      { from: "B", to: "C" },
-      { from: "A", to: "C" },
-      { from: "A", to: "D" },
-      { from: "D", to: "C" },
-      { from: "D", to: "E" },
-      { from: "E", to: "A" },
-      { from: "E", to: "C" },
+      { from: "A", to: "B" },   // top horizontal
+      { from: "A", to: "E" },   // left upper vertical
+      { from: "E", to: "C" },   // left lower vertical
+      { from: "B", to: "F" },   // right upper vertical
+      { from: "F", to: "D" },   // right lower vertical
+      { from: "E", to: "F" },   // crossbar
+      { from: "C", to: "D" },   // bottom horizontal
     ],
-    oddNodes: ["D", "E"],
+    oddNodes: ["E", "F"],
   },
   // ── Hard: Grid (3×2 partial) ─────────────────────────────────────────────────
   // Degrees: A=2, B=3*, C=2, D=3*, E=4, F=2, G=2, H=2  → Euler path B↔D
