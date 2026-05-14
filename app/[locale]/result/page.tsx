@@ -9,6 +9,73 @@ import { Link } from "@/i18n/navigation";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Button } from "@/components/ui/Button";
 import { GAME_META, GAME_ORDER } from "@/lib/game-config";
+import type { AxisKey, TypeCode } from "@/lib/types";
+
+// ── 4 軸のゲームスタイル説明 ─────────────────────────────────────────────────
+
+const AXIS_STYLE: Record<AxisKey, {
+  pos: { code: string; label: string; desc: string };
+  neg: { code: string; label: string; desc: string };
+}> = {
+  VS: {
+    pos: { code: "V", label: "VANGUARD",   desc: "前に出る。速さで戦況を支配する" },
+    neg: { code: "S", label: "SCOUT",      desc: "観察から入る。情報優位で動く" },
+  },
+  OD: {
+    pos: { code: "O", label: "OBSERVER",   desc: "細部を記憶。正確さを武器にする" },
+    neg: { code: "D", label: "DREAMER",    desc: "パターンを直感で捉える" },
+  },
+  LH: {
+    pos: { code: "L", label: "LOGIC",      desc: "効率と結果で判断する" },
+    neg: { code: "H", label: "HEART",      desc: "チームと共感で動く" },
+  },
+  PI: {
+    pos: { code: "P", label: "PLANNER",    desc: "計画してから実行する" },
+    neg: { code: "I", label: "IMPROVISER", desc: "試しながら適応する" },
+  },
+};
+
+const AXIS_ORDER: AxisKey[] = ["VS", "OD", "LH", "PI"];
+
+function StyleAxes({ code, axisScores, locale }: {
+  code: TypeCode;
+  axisScores: Record<AxisKey, number>;
+  locale: string;
+}) {
+  return (
+    <section className="w-full space-y-3">
+      <h2 className="text-xs tracking-[0.3em] text-[var(--color-muted)]">STYLE AXES</h2>
+      {AXIS_ORDER.map((axis) => {
+        const score = axisScores[axis];       // -50 to +50
+        const isPos = score >= 0;
+        const side  = isPos ? AXIS_STYLE[axis].pos : AXIS_STYLE[axis].neg;
+        const pct   = Math.round(Math.abs(score) / 50 * 100); // 0-100% confidence
+        const barColor = isPos ? "bg-[var(--color-primary)]" : "bg-[var(--color-secondary)]";
+
+        return (
+          <div key={axis} className="card px-4 py-3">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <span className={`text-xs font-black tracking-widest ${isPos ? "text-[var(--color-primary)]" : "text-[var(--color-secondary)]"}`}>
+                  {side.code}
+                </span>
+                <span className="ml-2 text-xs text-[var(--color-muted)] tracking-wider">{side.label}</span>
+              </div>
+              <span className="text-xs text-[var(--color-muted)] tabular-nums">{pct}%</span>
+            </div>
+            <div className="h-1 w-full bg-[var(--color-border)] rounded-full overflow-hidden mb-2">
+              <div
+                className={`h-full rounded-full ${barColor} transition-all duration-700`}
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+            <p className="text-xs text-zinc-400">{side.desc}</p>
+          </div>
+        );
+      })}
+    </section>
+  );
+}
 
 export default function ResultPage() {
   const t = useTranslations();
@@ -54,7 +121,7 @@ export default function ResultPage() {
     <main className="min-h-screen px-4 py-10 flex flex-col items-center gap-10 max-w-lg mx-auto">
       {/* ── Hero Card ── */}
       <section className="card w-full p-6 text-center space-y-4">
-        <p className="text-xs tracking-[0.3em] text-[var(--color-muted)]">PLAYER TYPE LAB</p>
+        <p className="text-xs tracking-[0.3em] text-[var(--color-muted)]">YOUR GAME STYLE</p>
         <p
           className="text-4xl font-black tracking-[0.4em] neon-primary"
           style={{ fontFamily: "var(--font-press-start, monospace)", fontSize: "clamp(1.2rem, 5vw, 2rem)" }}
@@ -100,6 +167,9 @@ export default function ResultPage() {
           </p>
         </section>
       )}
+
+      {/* ── Style axes ── */}
+      <StyleAxes code={code} axisScores={axisScores} locale={locale} />
 
       {/* ── Type detail ── */}
       {typeData && (

@@ -2,17 +2,17 @@
   "landing": {
     "title": "PLAYER TYPE LAB",
     "catchphrase": "Reveal your true player type.",
-    "cta": "Start Diagnosis",
-    "intro": "Play 8 mini-games and reveal your true player type in this action-based personality test.",
+    "cta": "Start",
+    "intro": "Play 8 mini-games to find out what kind of player you are. 16 game style types — which one is yours?",
     "resumeBanner": "Session in progress ({completed} / 8 complete)",
     "resumeContinue": "Continue",
     "resumeRestart": "Start Over"
   },
   "intro": {
     "title": "Ready?",
-    "duration": "About 12 minutes",
-    "gamesCount": "8 games / Mobile-friendly",
-    "consent": "Anonymous score data will be sent for calibration",
+    "duration": "About 12 min",
+    "gamesCount": "8 games / Mobile OK",
+    "consent": "Anonymous play data will be sent to improve accuracy",
     "consentOff": "Don't send",
     "privacyLink": "Privacy Policy",
     "start": "START"
