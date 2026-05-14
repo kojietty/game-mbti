@@ -2,13 +2,175 @@
   "landing": {
     "title": "PLAYER TYPE LAB",
     "catchphrase": "Reveal your true player type.",
-    "cta": "Start Diagnostic",
-    "intro": "An experimental personality test. Play 8 mini-games to reveal your true player type."
+    "cta": "Start Diagnosis",
+    "intro": "Play 8 mini-games and reveal your true player type in this action-based personality test.",
+    "resumeBanner": "Session in progress ({completed} / 8 complete)",
+    "resumeContinue": "Continue",
+    "resumeRestart": "Start Over"
+  },
+  "intro": {
+    "title": "Ready?",
+    "duration": "About 12 minutes",
+    "gamesCount": "8 games / Mobile-friendly",
+    "consent": "Anonymous score data will be sent for calibration",
+    "consentOff": "Don't send",
+    "privacyLink": "Privacy Policy",
+    "start": "START"
   },
   "common": {
     "next": "Next",
     "back": "Back",
     "start": "Start",
-    "skip": "Skip"
+    "skip": "Skip",
+    "beginStage": "BEGIN STAGE",
+    "nextStage": "NEXT STAGE",
+    "score": "Score",
+    "complete": "COMPLETE"
+  },
+  "types": {
+    "SDLP": {
+      "name": "The Strategist",
+      "catchphrase": "Reading 10 moves ahead",
+      "description": "A quiet thinker who builds long-term strategies. Rather than standing in the spotlight, they find satisfaction in crafting the perfect move from the shadows.",
+      "strengths": ["Long-term vision", "Deep analytical mind", "Self-reliance"],
+      "weaknesses": ["Emotional blind spots", "Perfectionism trap"],
+      "bestRoles": ["Analyst", "Architect"],
+      "shines": ["Designing long-term plans", "Complex system analysis", "1-on-1 tactical battles"]
+    },
+    "SDLI": {
+      "name": "The Debugger",
+      "catchphrase": "Hypothesis, test, repeat",
+      "description": "A lone solver who dismantles the world with logic and data. Never stops thinking until they find the perfect answer.",
+      "strengths": ["Analytical thinking", "Objectivity", "Intellectual curiosity"],
+      "weaknesses": ["Slow decision-making", "Awkward emotional expression"],
+      "bestRoles": ["Engineer", "Researcher"],
+      "shines": ["Root cause analysis", "Learning new technologies", "Deep solo focus work"]
+    },
+    "VDLP": {
+      "name": "The Commander",
+      "catchphrase": "No hesitation on the battlefield",
+      "description": "A strategic leader who uses snap decisions and logic to drive a group toward the future. Reads situations instantly and finds the shortest path to the goal.",
+      "strengths": ["Decisive action", "Strategic vision", "Strong decision-making"],
+      "weaknesses": ["Overlooking emotional needs", "Resistance to unplanned changes"],
+      "bestRoles": ["Leader", "Producer"],
+      "shines": ["Overseeing large projects", "Crisis decision-making", "Launching new ventures"]
+    },
+    "VDLI": {
+      "name": "The Raid Leader",
+      "catchphrase": "Win the argument, rewrite the rules",
+      "description": "A debate-driven player who moves situations with intellectual challenge and improvisation. Questions conventions and wins with tactics nobody else tries.",
+      "strengths": ["Logical persuasion", "Idea generation", "Driving discussions"],
+      "weaknesses": ["Rough follow-through", "Tendency to corner opponents"],
+      "bestRoles": ["Director", "Strategist"],
+      "shines": ["Devising new strategies", "Debate", "Pivoting team direction"]
+    },
+    "SDHP": {
+      "name": "The Lorekeeper",
+      "catchphrase": "Knows the story of the world better than anyone",
+      "description": "Pursuing a long-term mission with inner vision and strong empathy. Moves the world quietly but surely.",
+      "strengths": ["Deep empathy", "Long-term vision", "Insight"],
+      "weaknesses": ["Difficulty self-disclosing", "Burnout risk"],
+      "bestRoles": ["Counselor", "Writer"],
+      "shines": ["Building individual trust", "Driving long-term goals", "Designing narratives"]
+    },
+    "SDHI": {
+      "name": "The Roleplayer",
+      "catchphrase": "Writing your own story",
+      "description": "An idealist who lives by values and imagination. Trusts the inner voice over outside approval and keeps adding beauty to the world.",
+      "strengths": ["Creativity", "Consistent values", "Emotional richness"],
+      "weaknesses": ["Tendency toward escapism", "Sensitivity to criticism"],
+      "bestRoles": ["Creator", "Writer"],
+      "shines": ["World-building creative work", "Valuable solo projects", "Deep 1-on-1 dialogue"]
+    },
+    "VDHP": {
+      "name": "The Guildmaster",
+      "catchphrase": "Building a stage where everyone shines",
+      "description": "A charismatic leader who binds people with vision and empathy, guiding the group toward growth. Builds a passionate guild where no one is left behind.",
+      "strengths": ["Power to move people", "Concrete future vision", "Team inspiration"],
+      "weaknesses": ["Perfectionism-induced burden", "Difficulty accepting criticism"],
+      "bestRoles": ["Manager", "Coach"],
+      "shines": ["Team leadership", "Talent development", "Motivation management"]
+    },
+    "VDHI": {
+      "name": "The Adventurer",
+      "catchphrase": "Anywhere. With anyone. Right now.",
+      "description": "A free-style explorer who expands the world with curiosity and empathy. New encounters and ideas are the fuel.",
+      "strengths": ["Communication skills", "Flexible thinking", "Passion and empathy"],
+      "weaknesses": ["Scattered attention", "Difficulty with long-term commitments"],
+      "bestRoles": ["Evangelist", "Facilitator"],
+      "shines": ["Opening new communities", "Crossing ideas", "Setting the vibe"]
+    },
+    "SOLP": {
+      "name": "The Speedrunner",
+      "catchphrase": "Fastest route, every time",
+      "description": "An efficiency-focused player who masters the rules and runs the shortest route. Once committed, they execute without compromise.",
+      "strengths": ["Execution power", "Attention to detail", "Steady consistency"],
+      "weaknesses": ["Slow to adapt to change", "Limited creative thinking"],
+      "bestRoles": ["Operator", "Project Manager"],
+      "shines": ["Completing defined tasks", "Process optimization", "Setting rules and procedures"]
+    },
+    "SOHP": {
+      "name": "The Healer",
+      "catchphrase": "There when someone is about to fall",
+      "description": "The quiet backbone who supports teammates with warm observation and dedication. The team's emotional pillar.",
+      "strengths": ["Empathy", "Behind-the-scenes support", "Stability"],
+      "weaknesses": ["Weak self-assertion", "Draining when unappreciated"],
+      "bestRoles": ["Supporter", "Coordinator"],
+      "shines": ["Emotional care for the team", "Detailed follow-up", "Long-term trust building"]
+    },
+    "VOLP": {
+      "name": "The Captain",
+      "catchphrase": "Move the team, run toward the goal",
+      "description": "A frontline leader who drives the team with clear rules and goals. Prioritizes discipline over emotion and proves it through results.",
+      "strengths": ["Organizational ability", "Responsibility", "Decisiveness"],
+      "weaknesses": ["Poor empathetic expression", "Stubbornness"],
+      "bestRoles": ["Manager", "Team Lead"],
+      "shines": ["Team command", "KPI management", "Project completion"]
+    },
+    "VOHP": {
+      "name": "The Supporter",
+      "catchphrase": "Creating a party where everyone smiles",
+      "description": "A social player who connects the group with harmony and warmth. Reads the room and makes sure everyone feels at home.",
+      "strengths": ["Cooperation", "Reading the room", "Gets along with anyone"],
+      "weaknesses": ["Avoiding conflict too much", "Hard to voice own opinions"],
+      "bestRoles": ["Community Manager", "HR"],
+      "shines": ["Team atmosphere building", "Interpersonal coordination", "Welcoming newcomers"]
+    },
+    "SOLI": {
+      "name": "The Sniper",
+      "catchphrase": "One shot, one hit. No waste.",
+      "description": "A solo operator who moves with observation and improvisation. No extra words needed — actions speak louder.",
+      "strengths": ["Instant situational judgment", "Technical mastery", "Independence"],
+      "weaknesses": ["Struggle with teamwork", "Lack of long-term planning"],
+      "bestRoles": ["Specialist", "Technician"],
+      "shines": ["Emergency response", "Precision technical work", "Solo problem-solving"]
+    },
+    "SOHI": {
+      "name": "The Crafter",
+      "catchphrase": "One-of-a-kind work, at my own pace",
+      "description": "An artisan player who colors the world with sensibility and improvisation. Prioritizes personal aesthetics over trends and creates things nobody can replicate.",
+      "strengths": ["Unique aesthetic sense", "Delicate craftsmanship", "Deep emotional connection"],
+      "weaknesses": ["Difficulty with long-term planning", "Tendency to avoid conflict"],
+      "bestRoles": ["Creator", "Artist"],
+      "shines": ["Immersive creative work", "Focused solo concentration", "Leveraging sensibility"]
+    },
+    "VOLI": {
+      "name": "The Assaulter",
+      "catchphrase": "Lead the charge. Think later.",
+      "description": "A frontal force who breaks through situations with action and guts. Sees opportunity over risk — a tough front-runner.",
+      "strengths": ["Speed of action", "Courage", "On-site adaptability"],
+      "weaknesses": ["Reckless charging ahead", "Emotional flare-ups"],
+      "bestRoles": ["Sales", "Frontend Lead"],
+      "shines": ["Entering new markets", "On-site snap decisions", "High-competition performance"]
+    },
+    "VOHI": {
+      "name": "The Performer",
+      "catchphrase": "The world is your stage. You're the star.",
+      "description": "A born entertainer who sweeps others along with energy and empathy. Lives every moment to the fullest.",
+      "strengths": ["Expressiveness", "Sociability", "Warming up the room"],
+      "weaknesses": ["Sustaining focus", "Difficulty with deep planning"],
+      "bestRoles": ["Presenter", "Event Organizer"],
+      "shines": ["Performing in front of crowds", "Improvisational entertainment", "Community energizing"]
+    }
   }
 }

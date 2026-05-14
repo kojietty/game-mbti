@@ -1,16 +1,55 @@
 @import "tailwindcss";
 
+/* ── Google Fonts (self-hosted via next/font, this import is fallback) ── */
+
 @theme {
-  --color-base: #0a0a0f;
-  --color-surface: #15151f;
-  --color-primary: #22d3ee;
-  --color-secondary: #f0abfc;
-  --color-success: #4ade80;
-  --color-warning: #fb923c;
+  /* ── Colours ── */
+  --color-base:      #0a0a0f;
+  --color-surface:   #15151f;
+  --color-border:    #2a2a3a;
+  --color-primary:   #22d3ee;   /* cyan-400  */
+  --color-secondary: #f0abfc;   /* fuchsia-300 */
+  --color-success:   #4ade80;   /* green-400 */
+  --color-warning:   #fb923c;   /* orange-400 */
+  --color-muted:     #a1a1aa;   /* zinc-400 */
+
+  /* ── Neon glows ── */
+  --shadow-glow-primary:   0 0 12px var(--color-primary);
+  --shadow-glow-secondary: 0 0 12px var(--color-secondary);
+  --shadow-glow-success:   0 0 12px var(--color-success);
+
+  /* ── Spacing ── */
+  --radius-card: 12px;
 }
 
+/* ── Base styles ── */
 html,
 body {
-  background: var(--color-base);
+  background-color: var(--color-base);
   color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-base); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Utility: neon text ── */
+.neon-primary  { color: var(--color-primary);   text-shadow: var(--shadow-glow-primary); }
+.neon-secondary { color: var(--color-secondary); text-shadow: var(--shadow-glow-secondary); }
+
+/* ── Utility: game card surface ── */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
 }
