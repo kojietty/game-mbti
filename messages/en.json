@@ -1,0 +1,14 @@
+{
+  "landing": {
+    "title": "PLAYER TYPE LAB",
+    "catchphrase": "Reveal your true player type.",
+    "cta": "Start Diagnostic",
+    "intro": "An experimental personality test. Play 8 mini-games to reveal your true player type."
+  },
+  "common": {
+    "next": "Next",
+    "back": "Back",
+    "start": "Start",
+    "skip": "Skip"
+  }
+}
